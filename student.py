@@ -1,4 +1,5 @@
-class student:
+class Student:
+    #初始化
     def __init__(self, name, age, grade):
         self.name = name
         self.age = int(age)
