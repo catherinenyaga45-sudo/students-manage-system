@@ -7,7 +7,7 @@ class Logger:
 
     def load_logs(self):
         try:
-            with open('log.json', 'r', encoding='utf-8') as f:
+            with open('data/log.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
             print('日志文件不存在')
@@ -16,6 +16,8 @@ class Logger:
     def log(self,message,name = '全班'):
         now = datetime.now()
         self.logs[now.strftime('%Y-%m-%d %H:%M:%S')] = {'name':name, 'message': message}
-        with open('log.json', 'w', encoding='utf-8') as f:
+        with open('data/log.json', 'w', encoding='utf-8') as f:
             json.dump(self.logs, f, ensure_ascii=False, indent=4)
+
+logger = Logger()
 
