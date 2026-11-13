@@ -10,7 +10,6 @@ class Logger:
             with open('data/log.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
-            print('日志文件不存在')
             return {}
 
     def log(self,message,name = '全班'):
