@@ -11,7 +11,6 @@ class Manager:
         try:
             with open('data/students.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
-
         except FileNotFoundError:
             return {}
 
@@ -29,10 +28,10 @@ class Manager:
             count = max(int(number[1:]) for number in self.students)
         else:
             count = 1
-        self.students[f'P{count:03d}'] = Student(name, age, grade).__dict__
-        for subject in self.studnents[f'P{count:03d}']['subjects_scores']:
+        self.students[f'P{count+1:03d}'] = Student(name, age, grade).__dict__
+        for subject in self.students[f'P{count:03d}']['subjects_scores']:
             score = input(f'请输入{subject}成绩：')
-            self.students[f'P{count:03d}']['subjects_scores'][subject] = int(score)
+            self.students[f'P{count+1:03d}']['subjects_scores'][subject] = int(score)
         logger.log('添加学生', name)
         self.save_students()
 
@@ -103,3 +102,5 @@ class Manager:
                 break
             else:
                 print('无效的操作编号，请重新输入')
+
+manager = Manager()
