@@ -1,6 +1,6 @@
 import json
-from student import Student
-from log import logger
+from student.student import Student
+from log.log import logger
 from input import input_student_info, input_subject_scores
 
 class Manager:
@@ -10,14 +10,14 @@ class Manager:
     #加载学生数据
     def load_students(self):
         try:
-            with open('data/students.json', 'r', encoding='utf-8') as f:
+            with open('student/students.json', 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
 
     #保存学生数据
     def save_students(self):
-        with open('data/students.json', 'w', encoding='utf-8') as f:
+        with open('student/students.json', 'w', encoding='utf-8') as f:
             json.dump(self.students, f, ensure_ascii=False, indent=4)
 
 
