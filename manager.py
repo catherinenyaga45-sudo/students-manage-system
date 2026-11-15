@@ -65,8 +65,9 @@ class Manager:
                 target = number
                 break
         if target:
+            name = self.students[target]['name']
             del self.students[target]
-            logger.log('删除学生', self.students[target]['name'])
+            logger.log('删除学生', name)
             self.save_students()
         else:
             print('未找到该学生')
