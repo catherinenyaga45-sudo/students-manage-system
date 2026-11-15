@@ -29,12 +29,16 @@ class Manager:
             count = max(int(number[1:]) for number in self.students)
         else:
             count = 0
-        self.students[f'P{count+1:03d}'] = Student(name, age, grade).__dict__
-        for subject in self.students[f'P{count+1:03d}']['subjects_scores']:
+        student_id = f'P{count+1:03d}'
+        self.students[student_id] = Student(name, age, grade).__dict__
+        for subject in self.students[student_id]['subjects_scores']:
             while True:
                 try:
-                    score = input(f'请输入{subject}成绩：')
-                    self.students[f'P{count+1:03d}']['subjects_scores'][subject] = int(score)
+                    score = int(input(f'请输入{subject}成绩：'))
+                    if score < 0 or score > 100:
+                        print('成绩必须在0到100之间，请重新输入')
+                        continue
+                    self.students[student_id]['subjects_scores'][subject] = score
                     break
                 except ValueError:
                     print('请输入有效的成绩')
