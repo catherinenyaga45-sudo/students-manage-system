@@ -1,5 +1,6 @@
 #忽略运行产生的数据
 data/
+*.json
 
 #忽略python的缓存文件
 __pycache__/
