@@ -31,8 +31,14 @@ class Manager:
             count = 0
         self.students[f'P{count+1:03d}'] = Student(name, age, grade).__dict__
         for subject in self.students[f'P{count+1:03d}']['subjects_scores']:
-            score = input(f'请输入{subject}成绩：')
-            self.students[f'P{count+1:03d}']['subjects_scores'][subject] = int(score)
+            while True:
+                try:
+                    score = input(f'请输入{subject}成绩：')
+                    self.students[f'P{count+1:03d}']['subjects_scores'][subject] = int(score)
+                    break
+                except ValueError:
+                    print('请输入有效的成绩')
+                    continue
         logger.log('添加学生', name)
         self.save_students()
 
@@ -55,6 +61,8 @@ class Manager:
                 self.students = input_subject_scores(self.students, number)
                 logger.log('修改学生成绩', self.students[number]['name'])
                 self.save_students()
+        else:
+            print('未找到该学生')
 
     #删除学生
     def delete_student(self):
