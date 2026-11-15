@@ -29,7 +29,7 @@ class Manager:
         else:
             count = 1
         self.students[f'P{count+1:03d}'] = Student(name, age, grade).__dict__
-        for subject in self.students[f'P{count:03d}']['subjects_scores']:
+        for subject in self.students[f'P{count+1:03d}']['subjects_scores']:
             score = input(f'请输入{subject}成绩：')
             self.students[f'P{count+1:03d}']['subjects_scores'][subject] = int(score)
         logger.log('添加学生', name)
