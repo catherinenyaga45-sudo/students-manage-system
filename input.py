@@ -31,8 +31,11 @@ def input_subject_scores(students, student_id):
             if subject == in_subject:
                 while True:
                     try:
-                        in_score = input('请输入新的成绩：')
-                        students[student_id]['subjects_scores'][subject] = int(in_score)
+                        in_score = int(input('请输入新的成绩：'))
+                        if in_score < 0 or in_score > 100:
+                            print('成绩必须在0到100之间，请重新输入')
+                            continue
+                        students[student_id]['subjects_scores'][subject] = in_score
                         print('成绩修改成功')
                         break
                     except ValueError:
