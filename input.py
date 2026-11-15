@@ -18,7 +18,7 @@ def input_student_info():
             print('年级不能为空，请重新输入')
             continue
         break
-    return name, age, grade
+    return name, int(age), grade
 
 
 #科目成绩输入函数
