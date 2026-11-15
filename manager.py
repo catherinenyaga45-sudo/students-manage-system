@@ -1,6 +1,7 @@
 import json
 from student import Student
 from log import logger
+from input import input_student_info, input_subject_scores
 
 class Manager:
     def __init__(self):
@@ -19,11 +20,11 @@ class Manager:
         with open('data/students.json', 'w', encoding='utf-8') as f:
             json.dump(self.students, f, ensure_ascii=False, indent=4)
 
+
+
     #添加学生
     def add_student(self):
-        name = input('请输入学生姓名：')
-        age = input('请输入学生年龄：')
-        grade = input('请输入学生年级：')
+        name, age, grade = input_student_info()
         if self.students:
             count = max(int(number[1:]) for number in self.students)
         else:
@@ -48,29 +49,27 @@ class Manager:
 
     #修改学生成绩
     def update_student_score(self):
-        in_name = input('请输入学生姓名：')
+        stu_id = input('请输入学生学号(例：P001)：')
         for number in self.students:
-            if self.students[number]['name'] == in_name:
-                in_subject = input('请输入要修改的科目(语文/数学/英语)：')
-                for subject in self.students[number]['subjects_scores']:
-                    if subject == in_subject:
-                        in_score = input('请输入新的成绩：')
-                        self.students[number]['subjects_scores'][subject] = int(in_score)
-                        logger.log('修改学生成绩', in_name)
-                        self.save_students()
-                        print('成绩修改成功')
-                        break
-                else:
-                    print('未找到该科目')
+            if number == stu_id:
+                self.students = input_subject_scores(self.students, number)
+                logger.log('修改学生成绩', self.students[number]['name'])
+                self.save_students()
 
     #删除学生
     def delete_student(self):
-        in_name = input('请输入学生姓名：')
+        stu_id = input('请输入学生学号(例：P001)：')
+        target = None
         for number in self.students:
-            if self.students[number]['name'] == in_name:
-                del self.students[number]
-                logger.log('删除学上', in_name)
-                self.save_students()
+            if number == stu_id:
+                target = number
+                break
+        if target:
+            del self.students[target]
+            logger.log('删除学生', self.students[target]['name'])
+            self.save_students()
+        else:
+            print('未找到该学生')
 
     #查看所有学生
     def show_all_students(self):
