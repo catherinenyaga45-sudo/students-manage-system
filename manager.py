@@ -28,7 +28,7 @@ class Manager:
         if self.students:
             count = max(int(number[1:]) for number in self.students)
         else:
-            count = 1
+            count = 0
         self.students[f'P{count+1:03d}'] = Student(name, age, grade).__dict__
         for subject in self.students[f'P{count+1:03d}']['subjects_scores']:
             score = input(f'请输入{subject}成绩：')
